@@ -151,7 +151,6 @@
   (assert-equal 1978 (log-form-with-value (* 2 23 43)))
   "log-form records the code which it has been passed"
   (assert-equal 1 (length *log-with-value*))
-  (print (fourth (first *log-with-value*)))
   (assert-equal '(:form (* 2 23 43) :value 1978) (first *log-with-value*))
   "macros evaluating to more macros is ok, if confusing"
   (assert-equal 35 (log-form-with-value (log-form-with-value (- 2013 1978))))
