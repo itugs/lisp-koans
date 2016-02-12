@@ -18,7 +18,12 @@
 (define-condition triangle-error  (error) ())
 
 (defun triangle (a b c)
-  :write-me)
+  (if (>= 0 (min a b c)) (error 'triangle-error))
+  (let ((longest (max a b c)))
+    (if (>= longest (- (+ a b c) longest)) (error 'triangle-error)))
+  (if (and (eq a b) (eq b c) (eq a c)) (return-from triangle :equilateral))
+  (if (or (eq a b) (eq b c) (eq a c)) (return-from triangle :isosceles))
+  (return-from triangle :scalene))
 
 
 (define-test test-equilateral-triangles-have-equal-sides

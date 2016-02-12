@@ -50,7 +50,24 @@
 ; Your goal is to write the score method.
 
 (defun score (dice)
-  ; You need to write this method
+  (if (eq 0 (length dice)) (return-from score 0))
+  (sort dice #'<)
+  (let*
+	((a (first dice))
+	(b (second dice))
+	(c (third dice))
+	(s 0)
+	(i 1))
+  (if (and (eq a b) (eq b c))
+	(progn
+	  (cond 
+	    ((eq a 1) (setf s 1000))
+	    (t (setf s (* 100 a))))
+	  (setf i 3))
+    (cond 
+      ((eq a 1) (setf s 100))
+      ((eq a 5) (setf s 50))))
+  (return-from score (+ s (score (subseq dice i)))))
 )
 
 (define-test test-score-of-an-empty-list-is-zero
